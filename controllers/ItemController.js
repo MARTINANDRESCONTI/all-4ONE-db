@@ -1,3 +1,36 @@
+const { Item } = require('../database/db.js')
+
+const getAllItems = async(req, res) => {
+  try {
+    const item = await Item.findAll(
+    )
+    res.json(item)
+  } catch (error) {
+    console.log(Item.findAll(), 'estoy');
+    res.json( {'message': 'no funca'})
+  }
+}
+
+// agregar un producto
+const postItem = async (req, res) => {
+  const {cerveza} = req.body
+  try {
+    const newCerveza = await Item.create({
+      cerveza
+  })
+    res.json(newCerveza)
+  } catch (error) {
+    res.json( {'message': 'error.message'})
+  }
+}
+
+module.exports = {
+  getAllItems,
+  postItem
+}
+
+
+
 // import ItemModel from "../models/Item.js";
 
 // mostrar todos los productos ordenados
@@ -53,33 +86,4 @@
 //   }
 // }
 
-const { Item } = require('../database/db.js')
 
-const getAllItems = async(req, res) => {
-  try {
-    const item = await Item.findAll(
-    )
-    res.json(item)
-  } catch (error) {
-    console.log(Item.findAll(), 'estoy');
-    res.json( {'message': 'no funca'})
-  }
-}
-
-// agregar un producto
-const postItem = async (req, res) => {
-  const {cerveza} = req.body
-  try {
-    const newCerveza = await Item.create({
-      cerveza
-  })
-    res.json(newCerveza)
-  } catch (error) {
-    res.json( {'message': 'error.message'})
-  }
-}
-
-module.exports = {
-  getAllItems,
-  postItem
-}
